@@ -76,7 +76,7 @@ abstract class _AccountStore with Store {
   AccountData get currentAccount {
     int i = accountListAll.indexWhere((i) => i.pubKey == currentAccountPubKey);
     if (i < 0) {
-      return accountListAll[0] ?? AccountData();
+      return AccountData();
     }
     return accountListAll[i];
   }
@@ -187,8 +187,9 @@ abstract class _AccountStore with Store {
 
     await loadAccount();
 
-    // clear the temp account after addAccount finished
-    newAccount = AccountCreate();
+    /// do not clear the temp account after addAccount finished because
+    /// user may need to save password with biometric.
+    // newAccount = AccountCreate();
   }
 
   @action
